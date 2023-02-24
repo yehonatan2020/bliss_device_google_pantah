@@ -4,6 +4,12 @@
 # SPDX-License-Identifier: Apache-2.0
 #
 
+# Enable ThinLTO Source wide 
+GLOBAL_THINLTO := true
+USE_THINLTO_CACHE := true
+SKIP_ABI_CHECKS := true
+KERNEL_LTO := thin
+
 BUILD_BROKEN_DUP_RULES := true
 
 # Kernel

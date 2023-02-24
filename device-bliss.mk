@@ -4,6 +4,8 @@
 # SPDX-License-Identifier: Apache-2.0
 #
 
+$(call inherit-product-if-exists, vendor/gms/products/gms.mk)
+
 # EUICC
 PRODUCT_COPY_FILES += \
     frameworks/native/data/etc/android.hardware.telephony.euicc.xml:$(TARGET_COPY_OUT_PRODUCT)/etc/permissions/android.hardware.telephony.euicc.xml
@@ -12,6 +14,29 @@ PRODUCT_COPY_FILES += \
 include hardware/google/pixel/powershare/device.mk
 
 # Build necessary packages for vendor
+
+# Enable one-handed mode
+PRODUCT_PRODUCT_PROPERTIES += \
+    ro.support_one_handed_mode=true
+
+# Enable blur
+PRODUCT_SYSTEM_DEFAULT_PROPERTIES += \
+    ro.sf.blurs_are_expensive=1 \
+    ro.surface_flinger.supports_background_blur=1 \
+
+# FOD animations
+EXTRA_UDFPS_ANIMATIONS := true
+    
+# Camera AUX
+PRODUCT_PROPERTY_OVERRIDES += \
+    persist.vendor.camera.expose.aux=1 \
+    persist.camera.expose.aux=1 \
+    persist.camera.HAL3.enabled=1 \
+    persist.vendor.camera.HAL3.enabled \
+
+# Use 2-button navbar by default
+PRODUCT_PRODUCT_PROPERTIES += \
+    ro.boot.vendor.overlay.theme=com.android.internal.systemui.navbar.twobutton
 
 # Audio
 PRODUCT_PACKAGES += \
